@@ -1,0 +1,43 @@
+local oldTerm
+
+local apisLoading = {}
+
+local Extension = function(path, addDot)
+	if (not path) then
+		return nil
+	end
+	
+	if (not string.find(fs.getName(path), '%.')) then
+		if (not addDot) then
+			return fs.getName(path)
+		else
+			return ''
+		end
+	else
+		local _path = path
+		
+		if (path:sub(#path) == '/') then
+			_path = path:sub(1, #path -1)
+		end
+		
+		local ext = _path:gmatch('\[0-9a-z]+$')()
+		
+		if (ext) then
+			ext = ext:sub(2)
+		else
+			return ''
+		end
+		
+		if (addDot) then
+			ext = '.' .. ext
+		end
+		
+		return ext:lower()
+	end
+end
+
+function main()
+	oldTerm = term
+end
+
+main()
