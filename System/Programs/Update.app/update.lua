@@ -73,7 +73,7 @@ function main()
 	end
 	
 	for i, v in ipairs(tree) do
-        table.insert(downloads, function() downloadBlob(v) end)
+        table.insert(downloads, function() downloadBlob(v, latestReleaseTag) end)
 	end
 	
 	parallel.waitForAll(unpack(downloads))
@@ -92,7 +92,7 @@ function main()
 	term.clear()
 end
 
-function downloadBlob(v)
+function downloadBlob(v, latestReleaseTag)
 	if isBlacklisted(Settings.InstallPath..v.path) then
 			return
 	end
@@ -103,10 +103,10 @@ function downloadBlob(v)
 	else
 		Draw('Starting download for: ' .. Settings.InstallPath .. v.path)
 		
-		local f = http.get(('https://raw.github.com/' .. Settings.GitHubUsername .. '/' .. Settings.GitHubRepoName .. '/' .. latestReleaseTag .. Settings.InstallPath .. v.path) : gsub(' ', '%%20'))
+		local f = http.get(('https://raw.github.com/' .. Settings.GitHubUsername .. '/' .. Settings.GitHubRepoName .. '/' .. latestReleaseTag .. Settings.InstallPath .. v.path):gsub(' ', '%%20'))
 		
 		if not f then
-			error('Downloading failed, try again. ' .. ('https://raw.github.com/' .. Settings.GitHubUsername .. '/' .. Settings.GitHubRepoName .. '/' .. latestReleaseTag .. Settings.InstallPath .. v.path) : gsub(' ', '%%20'))
+			error('Downloading failed, try again. ' .. ('https://raw.github.com/' .. Settings.GitHubUsername .. '/' .. Settings.GitHubRepoName .. '/' .. latestReleaseTag .. Settings.InstallPath .. v.path):gsub(' ', '%%20'))
 		end
 		
 		local h = fs.open('/' .. Settings.InstallPath..v.path, 'w')
