@@ -48,10 +48,8 @@ end
 function registerAPIs()
 	local list = fs.list("/System/API")
 	
-	for (i, api in pairs(list)) do
-		apis[i] = api
-		
-		os.loadAPI(api)
+	for i, api in pairs(list) do
+		os.loadAPI("/System/API/" .. api)
 	end
 end
 
