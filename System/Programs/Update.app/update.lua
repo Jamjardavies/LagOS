@@ -85,11 +85,9 @@ function main()
 	
 	mainTitle = 'Installation Complete!'
 
-	--Draw('Rebooting in 1 second...')
+	Draw('Rebooting in 1 second...')
 	sleep(1)
-	--os.reboot()
-	
-	term.clear()
+	os.reboot()
 end
 
 function downloadBlob(v, latestReleaseTag)

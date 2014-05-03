@@ -38,6 +38,8 @@ end
 
 function main()
 	oldTerm = term
+	
+	os.loadAPI("api/periph")
 end
 
 main()
