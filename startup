@@ -42,7 +42,7 @@ function main()
 	registerAPIs()
 	
 	-- Now run main.
-	os.run(getfenv(), '/System/main.lua")
+	os.run(getfenv(), "/System/main.lua")
 end
 
 function registerAPIs()
