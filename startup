@@ -1,6 +1,6 @@
 local oldTerm
 
-local apisLoading = {}
+local apis = {}
 
 local Extension = function(path, addDot)
 	if (not path) then
@@ -17,7 +17,7 @@ local Extension = function(path, addDot)
 		local _path = path
 		
 		if (path:sub(#path) == '/') then
-			_path = path:sub(1, #path -1)
+			_path = path:sub(1, #path - 1)
 		end
 		
 		local ext = _path:gmatch('\[0-9a-z]+$')()
@@ -39,7 +39,20 @@ end
 function main()
 	oldTerm = term
 	
-	os.loadAPI("api/periph")
+	registerAPIs()
+	
+	-- Now run main.
+	os.run(getfenv(), '/System/main.lua")
+end
+
+function registerAPIs()
+	local list = fs.list("/System/API")
+	
+	for (i, api in pairs(list)) do
+		apis[i] = api
+		
+		os.loadAPI(api)
+	end
 end
 
 main()
