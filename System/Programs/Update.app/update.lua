@@ -73,7 +73,7 @@ function main()
 	end
 	
 	for i, v in ipairs(tree) do
-        table.insert(downloads, function() downloadBlob(v) end)
+        table.insert(downloads, function() downloadBlob(v, latestReleaseTag) end)
 	end
 	
 	parallel.waitForAll(unpack(downloads))
@@ -92,7 +92,7 @@ function main()
 	term.clear()
 end
 
-function downloadBlob(v)
+function downloadBlob(v, latestReleaseTag)
 	if isBlacklisted(Settings.InstallPath..v.path) then
 			return
 	end
