@@ -145,6 +145,7 @@ end
 
 function Draw(subtitle)
 	if (monitor ~= nil) then
+		monitor.setTextScale(0.5)
 		term.redirect(monitor)
 	end
 	
