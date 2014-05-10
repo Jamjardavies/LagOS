@@ -106,7 +106,7 @@ function downloadManager( path )
 				
 				fPath[i] = fPath[i].."/"..fName[i]
 			end
-			local path = "downloads/"..gRepo.."/"..fPath[i]
+			local path = "/"..fPath[i]
 			if gPath ~= "" then path = gPath.."/"..gRepo.."/"..fPath[i] end
 			if not fileList.files[path] and not isBlackListed(fPath[i]) then
 				fileList.files[path] = {"https://raw.github.com/"..gUser.."/"..gRepo.."/"..gBranch.."/"..fPath[i],fName[i]}
@@ -115,7 +115,7 @@ function downloadManager( path )
 	end
 	for i, data in pairs(fType) do
 		if data == "dir" then
-			local path = "downloads/"..gRepo.."/"..fPath[i]
+			local path = "/"..fPath[i]
 			if gPath ~= "" then path = gPath.."/"..gRepo.."/"..fPath[i] end
 			if not fileList.dirs[path] then 
 				writeCenter("Listing directory: "..fName[i])
