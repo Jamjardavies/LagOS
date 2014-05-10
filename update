@@ -1,1 +1,1 @@
-shell.run("System/Programs/Update.app/update.lua")
+shell.run("System/Programs/Update.app/update.lua", "Jamjardavies", "LagOS")
