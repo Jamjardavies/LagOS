@@ -36,6 +36,55 @@ local Extension = function(path, addDot)
 	end
 end
 
+local RemoveExtension = function(path)
+	if path:sub(1,1) == '.' then
+		return path
+	end
+	
+	local extension = Extension(path)
+	
+	if extension == path then
+		return fs.getName(path)
+	end
+	
+	return string.gsub(path, extension, ''):sub(1, -2)
+end
+
+function LoadApis(path)
+	local name = RemoveExtension(fs.getName(path))
+	
+	if (apis[name] == true) then
+		printError("API " .. name .. " is already being loaded.")
+		
+		return false
+	end
+	
+	apis[name] = true
+	
+	local tEnv = {}
+	setmetatable(tEnv, { __index = getfenv() })
+	
+	local fnApi, err = loadfile(path)
+	
+	if fnApi then
+		setfenv(fnApi, tEnv)
+		fnApi()
+	else
+		printError(err)
+		apis[name] = nil
+		
+		return false
+	end
+	
+	local api = {}
+	
+	for k, v in pairs(tEnv) do
+		api[k] = v
+		
+		print(k .. " = " .. v)
+	end
+end
+
 function main()
 	oldTerm = term
 	
